@@ -48,12 +48,6 @@ This is a simple Java-based **Online Shopping System** developed using core **Ob
 
 ├── Product.java ├── User.java ├── Order.java ├── Payment.java ├── OnlineShoppingSystem.java
 
-yaml
-Copy
-Edit
-
----
-
 ## 📌 Future Improvements
 
 - Add database connectivity  
