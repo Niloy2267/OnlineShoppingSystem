@@ -74,6 +74,6 @@ Edit
 
 ## 👨‍💻 Developed By
 
-- **Your Name Here**
+- NILOY BARUA
 - CSE 2nd Semester
 - Online Shopping System Project (OOP)
