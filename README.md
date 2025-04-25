@@ -1,22 +1,21 @@
-# 🛍️ Online Shopping System using Java (OOP Project)
+# Online Shopping System using Java (OOP Project)
 
 This is a simple Java-based **Online Shopping System** developed using core **Object-Oriented Programming (OOP)** concepts. The system allows a user to log in, browse products, add items to a cart, apply promo codes, place an order, and make payments.
 
 ---
+ Features
 
-## 🔍 Features
-
-- ✅ User Login System  
-- 🛒 Product Listing  
-- ➕ Add to Cart  
-- 🧾 View Cart and Calculate Total  
-- 🎁 Apply Promo Code  
-- 📦 Place Order and Track Status  
-- 💳 Process Payment  
+-  User Login System  
+-  Product Listing  
+-  Add to Cart  
+-  View Cart and Calculate Total  
+-  Apply Promo Code  
+-  Place Order and Track Status  
+-  Process Payment  
 
 ---
 
-## 🧠 OOP Concepts Applied
+# OOP Concepts Applied
 
 - **Encapsulation:** Class variables are protected with methods  
 - **Abstraction:** Complex logic is hidden using simple method calls  
@@ -25,7 +24,7 @@ This is a simple Java-based **Online Shopping System** developed using core **Ob
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 - **Language:** Java  
 - **Tools Used:** VS Code / IntelliJ IDEA  
@@ -33,7 +32,7 @@ This is a simple Java-based **Online Shopping System** developed using core **Ob
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 1. Clone the repository  
 2. Open the `OnlineShoppingSystem.java` file  
@@ -44,11 +43,11 @@ This is a simple Java-based **Online Shopping System** developed using core **Ob
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ├── Product.java ├── User.java ├── Order.java ├── Payment.java ├── OnlineShoppingSystem.java
 
-## 📌 Future Improvements
+##  Future Improvements
 
 - Add database connectivity  
 - Admin panel for product management  
@@ -57,7 +56,7 @@ This is a simple Java-based **Online Shopping System** developed using core **Ob
 
 ---
 
-## 📚 References
+##  References
 
 - Java Docs: [https://docs.oracle.com](https://docs.oracle.com)  
 - Anisul Islam Java Tutorial (YouTube)  
