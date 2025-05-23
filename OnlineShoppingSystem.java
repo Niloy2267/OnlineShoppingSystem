@@ -10,12 +10,13 @@ public class OnlineShoppingSystem {
         List<Product> accessories = new ArrayList<>(Arrays.asList(
                 new Product("Keyboard", 1500, "Accessories", 15),
                 new Product("Mouse", 800, "Accessories", 20)));
+
         List<Product> electronics = new ArrayList<>(Arrays.asList(
-                new Product("Laptop", 50000, "Electronics", 10),
-                new Product("Power Bank", 2500, "Electronics", 10),
-                new Product("Router", 3500, "Electronics", 12),
-                new Product("Smartphone", 30000, "Electronics", 5),
-                new Product("Smartwatch", 8000, "Electronics", 8)));
+                new ElectronicProduct("Laptop", 50000, "Electronics", 10, 12),
+                new ElectronicProduct("Power Bank", 2500, "Electronics", 10, 6),
+                new ElectronicProduct("Router", 3500, "Electronics", 12, 12),
+                new ElectronicProduct("Smartphone", 30000, "Electronics", 5, 24),
+                new ElectronicProduct("Smartwatch", 8000, "Electronics", 8, 12)));
 
         System.out.println("Welcome to Online Shopping!");
         System.out.println("1. Register");
@@ -85,65 +86,52 @@ public class OnlineShoppingSystem {
         }
 
         double total = loggedUser.calculateTotal();
-        System.out.println("\nYour Cart Summary:");
-        loggedUser.viewCart();
-        System.out.println("Total before discount: Tk " + total);
+        System.out.println("Total amount: Tk " + total);
 
-        System.out.print("Enter promo code (or press Enter to skip): ");
-        scanner.nextLine(); // consume leftover newline
-        String promoCode = scanner.nextLine();
-        double discount = 0;
-        if (promoCode.equalsIgnoreCase("niloy")) {
-            discount = total * 0.15;
-            System.out.println("Promo applied! Tk " + discount + " discount.");
-        } else if (!promoCode.isEmpty()) {
-            System.out.println("Invalid promo code.");
-        }
+        Order order = new Order(loggedUser, loggedUser.cart, loggedUser.cartQuantity);
 
-        double finalTotal = total - discount;
-        System.out.println("Total after discount: Tk " + finalTotal);
-
-        System.out.println("Choose payment method:");
+        System.out.println("Select payment method:");
         System.out.println("1. bKash");
         System.out.println("2. Nagad");
         System.out.println("3. Cash on Delivery");
-        System.out.print("Select payment method: ");
         int paymentChoice = scanner.nextInt();
 
-        Order order = new Order(loggedUser, loggedUser.cart, loggedUser.cartQuantity);
-        order.placeOrder();
-        Payment payment = new Payment(order);
+        Payment payment = null;
+        switch (paymentChoice) {
+            case 1:
+                payment = new BkashPayment(order);
+                break;
+            case 2:
+                payment = new NagadPayment(order);
+                break;
+            case 3:
+                payment = new CashOnDeliveryPayment(order);
+                break;
+            default:
+                System.out.println("Invalid payment option.");
+                System.exit(0);
+        }
+
         payment.processPayment();
         order.trackOrder();
 
-        scanner.close();
+        System.out.println("Thank you for shopping with us!");
     }
 
     private static void displayProductsAndAddToCart(Scanner scanner, User user, List<Product> products) {
-        System.out
-                .println("\n--- " + (products.isEmpty() ? "No Products" : products.get(0).category) + " Products ---");
+        System.out.println("Available products:");
         for (int i = 0; i < products.size(); i++) {
             products.get(i).displayProduct(i + 1);
         }
-        while (true) {
-            System.out.print("Enter product number to add to cart (0 to go back): ");
-            int productNum = scanner.nextInt();
-            if (productNum == 0)
-                break;
-            if (productNum < 1 || productNum > products.size()) {
-                System.out.println("Invalid product number.");
-                continue;
-            }
-            Product selectedProduct = products.get(productNum - 1);
 
+        System.out.print("Select product number to add to cart (0 to cancel): ");
+        int prodChoice = scanner.nextInt();
+        if (prodChoice > 0 && prodChoice <= products.size()) {
+            Product selected = products.get(prodChoice - 1);
             System.out.print("Enter quantity: ");
             int quantity = scanner.nextInt();
-            if (quantity <= 0) {
-                System.out.println("Quantity must be positive.");
-                continue;
-            }
 
-            user.addToCart(selectedProduct, quantity);
+            user.addToCart(selected, quantity);
         }
     }
 }

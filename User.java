@@ -2,13 +2,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    String username, email, password;
-    List<Product> cart = new ArrayList<>();
-    List<Integer> cartQuantity = new ArrayList<>(); // Quantity per product in cart
+    private String username;
+    private String email;
+    private String password;
+    protected List<Product> cart = new ArrayList<>();
+    protected List<Integer> cartQuantity = new ArrayList<>();
 
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
+        this.password = password;
+    }
+
+    // Getters and setters (Encapsulation)
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -22,13 +37,13 @@ public class User {
     }
 
     public void addToCart(Product product, int quantity) {
-        if (product.stock >= quantity) {
+        if (product.getStock() >= quantity) {
             cart.add(product);
             cartQuantity.add(quantity);
-            product.stock -= quantity;
-            System.out.println(quantity + " x " + product.name + " added to cart.");
+            product.setStock(product.getStock() - quantity);
+            System.out.println(quantity + " x " + product.getName() + " added to cart.");
         } else {
-            System.out.println("Sorry, not enough stock for " + product.name);
+            System.out.println("Sorry, not enough stock for " + product.getName());
         }
     }
 
@@ -41,7 +56,7 @@ public class User {
         for (int i = 0; i < cart.size(); i++) {
             Product p = cart.get(i);
             int qty = cartQuantity.get(i);
-            System.out.println("- " + p.name + " x " + qty + " = Tk " + (p.price * qty));
+            System.out.println("- " + p.getName() + " x " + qty + " = Tk " + (p.getPrice() * qty));
         }
     }
 
@@ -50,8 +65,25 @@ public class User {
         for (int i = 0; i < cart.size(); i++) {
             Product p = cart.get(i);
             int qty = cartQuantity.get(i);
-            total += p.price * qty;
+            total += p.getPrice() * qty;
         }
         return total;
+    }
+}
+
+// Inheritance: AdminUser extends User
+class AdminUser extends User {
+    public AdminUser(String username, String email, String password) {
+        super(username, email, password);
+    }
+
+    public void addProduct(List<Product> productList, Product product) {
+        productList.add(product);
+        System.out.println("Product " + product.getName() + " added successfully.");
+    }
+
+    public void removeProduct(List<Product> productList, Product product) {
+        productList.remove(product);
+        System.out.println("Product " + product.getName() + " removed successfully.");
     }
 }
